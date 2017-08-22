@@ -1,0 +1,14 @@
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,blockquote,th,td,p{margin:0;padding:0}
+input,button,select,textarea{outline:none}li{list-style:none}img{border:none}textarea{resize:none}input{bordr:0px;}
+body{color:#666;background:#fff;word-break:break-all;word-wrap:break-word;}
+body,input,textarea{font-size:12px;font-family:\5b8b\4f53,Verdana,Arial}
+a{color:#305999;text-decoration:none;outline:none}
+a:hover{color:#090}
+/*clearfix*/
+.clearfix:after,.wrap:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}

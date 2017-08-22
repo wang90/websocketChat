@@ -3,62 +3,97 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="./css/base.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src ="./jquery-1.8.0.min.js"></script>
     <script src ="./socket.io.js"></script>
 </head>
 <body>
-    <h1>test websocket</h1>
-    <input type="text" id="sendTxt">
-    <button type="button" id="sendBtn">发送</button>
-    <p id="recv"></p>
+<div class="add-user-list form">
+    <div class="list-box">
+        <div class="item">
+            <label>名字：</label>
+            <input type="text" id="addUserName">
+        </div>
+        <div class="item">
+            <!--<label>名字：</label>-->
+            <!--<input type="text">-->
+        </div>
+        <div class="item-button">
+            <button id="addUserBtn" onclick="addUserList()">确认</button>
+        </div>
+    </div>
+</div>
+<div class="login form">
+    <div class="login-box">
+        <ul class="login-tab clearfix">
+            <li onclick="loginTab(1)" class="active">用户</li>
+            <li onclick="loginTab(2)">管理</li>
+        </ul>
+        <div id="student">
+            <div class="item">
+                <label>名字：</label>
+                <input type="text" id="userName">
+            </div>
+            <div class="item">
 
-    <script>
-        var socket = io('ws://web1.shuiqian.cc:8001');
-
-        function showMessage(str,type){
-            var div =document.createElement("div");
-            div.innerHTML = str;
-            if(type =="enter"){
-                div.style.color="blue";
-            }else if(type =="leave"){
-                div.style.color="red";
-            }
-            document.body.appendChild(div);
-        }
-
-        socket.on("enter",function(data){
-            showMessage(data,"enter");
-        })
-        socket.on("message",function(data){
-            showMessage(data,"message");
-        });
-        socket.on("leave",function(data){
-            showMessage(data,"leave");
-        });
-        document.getElementById("sendBtn").onclick=function(){
-            var text = document.getElementById("sendTxt").value;
-            console.log(text);
-            if(text){
-                socket.emit('message', text);
-                document.getElementById("sendTxt").value ="";
-            }
-        };
-//        socket.onopen = function(){
-//            console.log("websocket open");
-//            document.getElementById("recv").innerHTML = "正在连接";
-//        }
-//        websocket.onclose= function(){
-//            console.log("webscocket closed");
-//        }
-//        websocket.onmessage = function(e){
-//            console.log(e);
-//            document.getElementById("recv").innerHTML = e.data;
-//        }
-//        document.getElementById("sendBtn").onclick=function(){
-//            var text = document.getElementById("sendTxt").value;
-//            console.log(text);
-//            websocket.send(text);
-//        }
-    </script>
-
+            </div>
+            <div class="item-button">
+                <button id="userButton">确认</button>
+            </div>
+        </div>
+        <div id="teacher">
+            <div class="item">
+                <label>名字：</label>
+                <input type="text" id="teachUser">
+            </div>
+            <div class="item">
+                <label>密码：</label>
+                <input type="text" id="teachPass">
+            </div>
+            <div class="item-button">
+                <button id="teachButton">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="w chart">
+    <h1 class="chart-title">XXXX</h1>
+    <div class="chart-other">房间号：000000</div>
+    <div class="chart-main clearfix">
+        <div class="chart-user">
+            <span class="add-user" onclick="addList();">+</span>
+            <ul class="chart-user-list">
+                <!--<li>-->
+                <!--<img src="img/user%20(1).jpg"  class="fl" alt="">-->
+                <!--<p class="fl">-->
+                <!--<span>飞天</span><br>-->
+                <!--<span>分数：100</span>-->
+                <!--</p>-->
+                <!--</li>-->
+            </ul>
+        </div>
+        <div class="chart-teach">
+            <h5>通知</h5>
+            <ul class="chart-notice">
+                <!--<li>欢迎大家打来说都阿萨德萨达阿迪</li>-->
+            </ul>
+        </div>
+        <div class="chart-home">
+            <button type="button" class="chart-home-clear" id="clearHome">清屏</button>
+            <ul class="chart-message">
+                <!--<li>-->
+                <!--<span>xxx說：</span>12313212313-->
+                <!--</li>-->
+            </ul>
+            <div class="chart-send">
+                <input type="text" id="sendTxt" onkeypress="CheckInfo();">
+                <button id="sendBtn">发送</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="./js/main.js"></script>
 </body>
 </html>
