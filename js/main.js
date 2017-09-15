@@ -1,5 +1,8 @@
 
-//        var socket = io('ws://10.2.1.16:8001');
+
+
+var socket_url = 'ws://web1.shuiqian.cc:8001';
+
 var socket="";
 var userName ="";
 var userType=1;
@@ -11,7 +14,7 @@ $("#userButton").click(function(){
       user:userName,
       type:1
     };
-    socket = io('ws://10.2.1.16:8001');
+    socket = io(socket_url);
     socket.emit('user', user);
     socketBack();
     $(".login").hide();
@@ -27,7 +30,7 @@ $("#teachButton").click(function(){
       user:userName,
       type:2
     };
-    socket = io('ws://127.0.0.1:8001');
+    socket = io(socket_url);
     socket.emit('user', user);
     socketBack();
     $(".add-user").show();
@@ -39,9 +42,9 @@ $("#teachButton").click(function(){
 function showMessage(data,type){
   var dataUserNams="";
   if(data.type==1){
-    dataUserNams= "[用户]"+data.user;
+    dataUserNams= "[学生]"+data.user;
   }else if(data.type==2){
-    dataUserNams= "[管理]"+data.user;
+    dataUserNams= "[老师]"+data.user;
   }
   if(type =="message"){
     var html ="<li><span class='talk'>"+dataUserNams+"发言：</span>"+data.message+"</li>";
@@ -53,8 +56,12 @@ function showMessage(data,type){
     var html ="<li><span class='enter'>"+dataUserNams+"离开了房间</span></li>";
     $(".chart-message").append(html);
   }else  if(type =="add"){
-    var html ="<li><span class='add'>"+dataUserNams+"给[用户]"+data.addUser+"1分，请继续努力</span></li>";
+    var html ="<li><span class='add'>"+dataUserNams+"给[学生]"+data.addUser+"1分，请继续努力</span></li>";
     $(".chart-message").append(html);
+  }else if(type =="del"){
+      var html ="<li><span class='add'>"+dataUserNams+"给[学生]"+data.addUser+"扣了1分,"+"请[学生]"+data.addUser+"注意您的表现</span></li>";
+      $(".chart-message").append(html);
+
   }else if(type =="notice"){
     var html ="<li><span class='notice'>"+dataUserNams+"发一个通知请大家认真阅读</span></li>";
     $(".chart-message").append(html);
@@ -81,6 +88,9 @@ function socketBack(){
   socket.on("add",function(data){
     showMessage(data,"add");
   });
+  socket.on("del",function(data){
+    showMessage(data,"del");
+  });
   socket.on("notice",function(data){
     showMessage(data,"notice");
   });
@@ -98,7 +108,10 @@ function getStatusList(data){
   for(var i = 0 ; i <data.info.length;i++){
     listHtml+='<li>';
     if(userType==2){
-      listHtml+='<span class="add" onclick="addUser('+data.info[i].id+')">+</span>';
+      listHtml+='<span class="add btn" onclick="addUser('+data.info[i].id+')">+</span>';
+      listHtml+='<span class="del btn" onclick="delUser('+data.info[i].id+')">-</span>';
+      //删除学生
+      // listHtml+='<span class="delUser btn" onclick="delList('+data.info[i].id+')">X</span>';
     }
     listHtml+='<img src="'+data.info[i].headImd+'"  class="fl" alt="">';
     listHtml+='<p class="fl">';
@@ -119,6 +132,15 @@ function addUser(id){
     type:userType
   }
   socket.emit('score',  addUser);
+}
+
+function delUser(id) {
+  var delUser = {
+      id:id,
+      user:userName,
+      type:userType
+  }
+  socket.emit('delScore', delUser);
 }
 
 
@@ -171,7 +193,11 @@ function ContentHmtlBotton(dom){
 function addList(){
   $(".add-user-list").show();
 }
-
+//删除学生
+// function delList(id){
+//     console.log(id);
+//     socket.emit('dellist', {id:id});
+// }
 function addUserList(){
   var val = $("#addUserName").val();
   if(val){

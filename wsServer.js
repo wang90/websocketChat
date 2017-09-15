@@ -17,6 +17,25 @@ app.listen(PORT);
 
 
 var clientCount = 0;
+
+var imgHead=[
+    "./img/user1.jpg",
+    "./img/user2.jpg",
+    "./img/user3.jpg",
+    "./img/user4.jpg",
+    "./img/user5.jpg",
+    "./img/user6.jpg",
+    "./img/user7.jpg",
+    "./img/user8.jpg",
+    "./img/user9.jpg",
+    "./img/user10.jpg",
+    "./img/user11.jpg",
+    "./img/user12.jpg",
+]
+
+
+
+
 io.on("connection",function(socket){
   //clientCount ++;
   socket.userType=1;
@@ -46,6 +65,25 @@ io.on("connection",function(socket){
       }
     }
   });
+
+  socket.on("delScore",function(data){
+    var filestr = JSON.parse(fs.readFileSync(file));
+    for(var i = 0 ; i <filestr.info.length;i++) {
+        if (filestr.info[i].id == data.id) {
+            filestr.info[i].score--;
+            fs.writeFileSync(file, JSON.stringify(filestr));
+            io.emit("list", filestr);
+            var addUser = {
+                user: data.user,
+                type: data.type,
+                addUser: filestr.info[i].name
+            }
+            io.emit("list", filestr);
+            io.emit("del", addUser);
+            return false;
+        }
+    }
+  })
   socket.on("user",function(data){
     obj.user=data.user;
     obj.type=data.type;
@@ -70,10 +108,12 @@ io.on("connection",function(socket){
   })
   socket.on("addlist",function(data){
     var filestr = JSON.parse(fs.readFileSync(file));
+    var n = parseInt(Math.random()*10);
+
     var obj = {
       name:data.addName,
       id:filestr.info.length,
-      headImd:"./img/user1.jpg",
+      headImd:imgHead[n],
       score:0
     }
     filestr.info.push(obj);
@@ -86,6 +126,27 @@ io.on("connection",function(socket){
     }
     io.emit("addlist", userObj);
   })
+    //删除学生
+  // socket.on("dellist",function (data) {
+  //   console.log(data);
+  //   var filestr = JSON.parse(fs.readFileSync(file));
+  //   console.log(filestr);
+  //     for(var i = 0 ; i <filestr.info.length;i++) {
+  //         if (filestr.info[i].id == data.id) {
+  //             var userObj ={
+  //                 user:data.user,
+  //                 type:data.type,
+  //                 addUser:data.addName
+  //             }
+  //             filestr.info.splice(i,1);
+  //             fs.writeFileSync(file, JSON.stringify(filestr));
+  //             io.emit("list", filestr);
+  //             io.emit("dellist", userObj);
+  //             return false;
+  //         }
+  //     }
+  //
+  // })
   socket.on("disconnect",function(data){
     io.emit("leave",obj);
   })

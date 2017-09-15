@@ -23,7 +23,7 @@ body,html{
 }
 .chart-user{
     float: left;
-    width:160px;
+    width:200px;
     margin-right: 20px;
     min-height: 300px;
     position: relative;
@@ -58,9 +58,8 @@ body,html{
     border-bottom:1px solid #ccc;
     position: relative;
 }
-.chart-user ul li >.add{
+.chart-user ul li >.btn{
     position: absolute;
-    right: 0px;
     top: 5px;
     display: block;
     width: 20px;
@@ -72,6 +71,18 @@ body,html{
     color: #fff;
     background: #36ccd6;
     font-size: 20px;
+}
+.chart-user ul li >.btn.add{
+    right: 0px;
+}
+.chart-user ul li >.btn.del{
+    right: 25px;
+}
+.chart-user ul li >.btn.delUser{
+    font-size: 12px;
+    border-radius: 50%;
+    left: 40px;
+    background: #455666;
 }
 .chart-user ul li>img{
     width:48px;
@@ -89,7 +100,7 @@ body,html{
 .chart-teach{
     border:1px solid #666;
     float: left;
-    width: 758px;
+    width: 700px;
     height:180px;
     padding:10px;
     margin-bottom: 10px;
@@ -128,7 +139,7 @@ body,html{
 .chart-home{
     border:1px solid #666;
     float: left;
-    width: 758px;
+    width: 700px;
     padding:10px;
     border-bottom-right-radius: 10px;
     position: relative;
@@ -172,7 +183,7 @@ body,html{
     height:50px;
 }
 .chart-home>.chart-send>input{
-    width: 600px;
+    width: 500px;
     height: 20px;
     display: block;
     padding: 5px 10px;
