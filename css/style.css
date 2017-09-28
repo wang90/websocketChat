@@ -6,6 +6,7 @@ body,html{
 .w{
     margin: auto;
     width:960px;
+    position: relative;
 }
 .chart-title{
     font-size: 30px;
@@ -18,12 +19,12 @@ body,html{
 }
 .chart-main{
     width:100%;
-    height:500px;
+    height: 620px;
     margin-top: 5px;
 }
 .chart-user{
     float: left;
-    width:200px;
+    width:400px;
     margin-right: 20px;
     min-height: 300px;
     position: relative;
@@ -46,7 +47,7 @@ body,html{
 .chart-user ul{
     border: 1px solid #666;
     padding: 0 13px;
-    height: 597px;
+    height: 620px;
     overflow-y: scroll;
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
@@ -70,13 +71,23 @@ body,html{
     line-height: 20px;
     color: #fff;
     background: #36ccd6;
-    font-size: 20px;
+    font-size: 14px;
+    z-index: 100;
 }
-.chart-user ul li >.btn.add{
-    right: 0px;
+.chart-user ul li >.btn.un-click{
+    background: #ccc;
+}
+.chart-user ul li >.btn.add_q{
+    right: 75px;
+}
+.chart-user ul li >.btn.add_d{
+    right: 50px;
+}
+.chart-user ul li >.btn.add_z{
+    right: 25px;
 }
 .chart-user ul li >.btn.del{
-    right: 25px;
+    right: 0px;
 }
 .chart-user ul li >.btn.delUser{
     font-size: 12px;
@@ -96,11 +107,25 @@ body,html{
     color: #666;
     line-height:20px;
     padding-top: 12px;
+    position: relative;
+}
+.chart-user ul li>p .userModity{
+    position: absolute;
+    display: block;
+    width: 18px;
+    height: 18px;
+    background: #00a2d4;
+    color: #fff;
+    line-height: 18px;
+    text-align: center;
+    border-radius: 3px;
+    left: 40px;
+    cursor: pointer;
 }
 .chart-teach{
     border:1px solid #666;
     float: left;
-    width: 700px;
+    width: 500px;
     height:180px;
     padding:10px;
     margin-bottom: 10px;
@@ -111,6 +136,22 @@ body,html{
     border-bottom: 1px solid #ccc;
     text-indent: 10px;
     font-size: 16px;
+    position: relative;
+}
+.addLession{
+    width: 95px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #fff;
+    background: #00a2d4;
+    text-align: center;
+    position: absolute;
+    right: 0;
+    top: -45px;
+    text-indent: 0;
+    display:none;
 }
 .chart-teach >ul{
     padding-left:20px;
@@ -139,7 +180,7 @@ body,html{
 .chart-home{
     border:1px solid #666;
     float: left;
-    width: 700px;
+    width: 500px;
     padding:10px;
     border-bottom-right-radius: 10px;
     position: relative;
@@ -158,8 +199,8 @@ body,html{
     background-color: #305999;
 }
 .chart-home>.chart-message{
-    width:100%;
-    height:300px;
+    /*width:100%;*/
+    height: 322px;
     background-color: #fff;
     margin-bottom: 5px;
     padding:5px;
@@ -183,7 +224,7 @@ body,html{
     height:50px;
 }
 .chart-home>.chart-send>input{
-    width: 500px;
+    width: 307px;
     height: 20px;
     display: block;
     padding: 5px 10px;
@@ -212,11 +253,16 @@ body,html{
     transform: translateY(-50%)
                 translateX(-50%);
     width: 302px;
-    height: 160px;
+    height: 190px;
     background-color: #ffffff;
     border-radius: 5px;
     margin: 0 auto;
     padding:30px 40px 20px;
+}
+.login .login-box  #loginMessage{
+    text-align: center;
+    color: #e07279;
+    margin-top: 5px;
 }
 .login-tab{
     margin-bottom: 10px;
@@ -226,7 +272,7 @@ body,html{
     cursor: pointer;
     padding:5px 10px ;
     color: #fff;
-    background: #305999;
+    background: #ccc;
     margin-right: 5px;
 }
 .login-tab>li:hover{
@@ -257,6 +303,13 @@ body,html{
 #teacher{
     display: none;
 }
+#teacher .item-button>button{
+    width:50%;
+    float: left;
+}
+#teacher .item-button>button#teacchResButton{
+    background: #349799;
+}
 .add-user-list{
     position: fixed;
     display: none;
@@ -267,6 +320,60 @@ body,html{
 }
 .add-user-list .list-box{
     width: 300px;
+    height: 180px;
+    border-radius: 5px;
+    background-color: #fff;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    padding: 30px 40px 20px;
+    transform: translateY(-50%)
+    translateX(-50%);
+}
+.add-user-list .list-box .del{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #000;
+    color: #fff;
+    text-align: center;
+    line-height: 20px;
+    border-radius: 50%;
+    top: -5px;
+    right: -5px;
+    cursor: pointer;
+}
+.list-grade{
+    margin-top: 15px;
+}
+.list-grade > ul > li {
+    width:20px;
+    height:20px;
+    text-align: center;
+    line-height: 20px;
+    border-radius: 5px;
+    color: #fff;
+    background: #a0e49b;
+    float: left;
+    margin-right: 3px;
+    cursor: pointer;
+}
+.list-grade > ul > li.active{
+    background: #1c8315;
+}
+.list-grade-title{
+    margin-right: 10px;
+}
+.add-lession{
+    position: fixed;
+    display: none;
+    width:100%;
+    height:100%;
+    background-color: rgba(0,0,0,0.3);
+    z-index:9999;
+}
+.add-lession .list-box{
+    width: 300px;
     height: 130px;
     border-radius: 5px;
     background-color: #fff;
@@ -276,4 +383,208 @@ body,html{
     padding: 30px 40px 20px;
     transform: translateY(-50%)
     translateX(-50%);
+}
+.lession-list{
+    position: absolute;
+    right: -40px;
+    top:80px;
+    display: none;
+}
+.lession-list ul{
+    width:50px;
+}
+.lession-list ul li{
+    width:30px;
+    height:30px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    background: #e07279;
+    cursor: pointer;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    line-height: 30px;
+}
+.lession-list ul li.active{
+    background: #794e51;
+}
+.lession-box {
+    position: fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    right:0;
+    background-color: rgba(0,0,0,0.3);
+    z-index:9999;
+    display: none;
+}
+#delLessionModel{
+    position: fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    right:0;
+    background-color: rgba(0,0,0,0.3);
+    z-index: 9999999;
+    display: none;
+}
+#delLessionModel .delLessionModel{
+    width: 300px;
+    margin: 150px auto;
+    height: 150px;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 10px 20px;
+    text-align: center;
+}
+#delLessionModel .delLessionModel>h4{
+    font-size: 20px;
+    height: 100px;
+    line-height: 100px;
+}
+#delLessionModel .delLessionModel>div{
+
+}
+#delLessionModel .delLessionModel>div>span{
+    display: block;
+    float: left;
+    color: #fff;
+    width:50%;
+    height:30px;
+    line-height:30px;
+    cursor: pointer;
+}
+#delLessionModel .delLessionModel>div>span.canle{
+    background: #009900;;
+}
+#delLessionModel .delLessionModel>div>span.ok{
+    background: #349799;
+}
+.lession-box .lession-module{
+    width:900px;
+    margin: 50px auto;
+    background: #fff;
+    height: 450px;
+    border-radius: 10px;
+    padding: 10px 40px 10px 20px;
+    position: relative;
+}
+.lession-box .lession-module .close-lession-module{
+    position: absolute;
+    right:-10px;
+    top:-10px;
+    width:30px;
+    height:30px;
+    text-align: center;
+    line-height: 30px;
+    border-radius: 50%;
+    background: #333;
+    color: #fff;
+    cursor: pointer;
+}
+.lession-box .lession-module > h6{
+    font-size: 18px;
+    margin-bottom: 10px;
+    height: 24px;
+}
+.lession-box .lession-student-list{
+    width:100%;
+    margin: 0 auto;
+    height:400px;
+    border:1px solid #ccc;
+    position: relative;
+}
+.lession-student-list > .modiy{
+    position: absolute;
+    display: block;
+    padding: 2px 10px;
+    background: #333;
+    color: #fff;
+    border-radius: 3px;
+    right: 5px;
+    top: -25px;
+    cursor: pointer;
+}
+.lession-student-list > .delLession{
+    position: absolute;
+    display: block;
+    padding: 2px 10px;
+    background: #333;
+    color: #fff;
+    border-radius: 3px;
+    right: 70px;
+    top: -25px;
+    cursor: pointer;
+}
+#lessionStudentList{
+    height:370px;
+    overflow-y: scroll;
+    width:100%;
+}
+
+.lession-student-list  ul{
+    display: flex;
+}
+.lession-student-list  ul>li {
+    flex: 1px;
+    font-size: 14px;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    border-bottom: 1px solid #ccc;
+    border-right:1px solid #ccc;
+    box-sizing: content-box;
+    position: relative;
+}
+.lession-student-list  ul>li>span{
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    cursor: pointer;
+    text-align: center;
+    background: #b9797d;
+    color: #fff;
+    border-radius: 2px;
+    top: 50%;
+    margin-top: -7.5px;
+    position: absolute;
+    display: none;
+}
+.lession-student-list  ul>li>span.add{
+    left:2px;
+}
+.lession-student-list  ul>li>span.del{
+    right:2px;
+}
+.lession-student-list > ul>li:last-child{
+    border-right:none;
+}
+#modifyModel{
+    position: fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    right:0;
+    z-index: 999999;
+    background-color: rgba(0,0,0,0.3);
+    display: none;
+}
+.modiy-model{
+    position: relative;
+    width:300px;
+    height:150px;
+    background: #ffffff;
+    border-radius: 3px;
+}
+.modiy-model .del{
+    position: absolute;
+    right: -10px;
+    background: #000;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    color: #fff;
+    top: -10px;
 }

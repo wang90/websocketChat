@@ -6,6 +6,11 @@ var app = require('http').createServer();
 
 var fs=require('fs');
 var file="./data/dataJson.json";
+
+
+
+
+
 var result=JSON.parse(fs.readFileSync( file));
 
 var io = require('socket.io')(app);
@@ -127,29 +132,29 @@ io.on("connection",function(socket){
     io.emit("addlist", userObj);
   })
     //删除学生
-  // socket.on("dellist",function (data) {
-  //   console.log(data);
-  //   var filestr = JSON.parse(fs.readFileSync(file));
-  //   console.log(filestr);
-  //     for(var i = 0 ; i <filestr.info.length;i++) {
-  //         if (filestr.info[i].id == data.id) {
-  //             var userObj ={
-  //                 user:data.user,
-  //                 type:data.type,
-  //                 addUser:data.addName
-  //             }
-  //             filestr.info.splice(i,1);
-  //             fs.writeFileSync(file, JSON.stringify(filestr));
-  //             io.emit("list", filestr);
-  //             io.emit("dellist", userObj);
-  //             return false;
-  //         }
-  //     }
-  //
-  // })
+  socket.on("dellist",function (data) {
+    console.log(data);
+    var filestr = JSON.parse(fs.readFileSync(file));
+    // console.log(filestr);
+      for(var i = 0 ; i <filestr.info.length;i++) {
+          if (filestr.info[i].id == data.delId) {
+              var userObj ={
+                  user:data.user,
+                  type:data.type,
+                  addUser:filestr.info[i].name
+              }
+              filestr.info.splice(i,1);
+              fs.writeFileSync(file, JSON.stringify(filestr));
+              io.emit("list", filestr);
+              io.emit("dellist", userObj);
+              return false;
+          }
+      }
+
+  });
   socket.on("disconnect",function(data){
     io.emit("leave",obj);
-  })
+  });
 });
 console.log("websocket server listering on port:"+PORT);
 

@@ -40,6 +40,8 @@ $("#teachButton").click(function(){
 
 //展示板的信息
 function showMessage(data,type){
+  console.log(data);
+  console.log(type);
   var dataUserNams="";
   if(data.type==1){
     dataUserNams= "[学生]"+data.user;
@@ -68,9 +70,12 @@ function showMessage(data,type){
     $(".chart-notice").append("<li>"+data.message+"</li>");
     ContentHmtlBotton($(".chart-notice"));
   }else if(type =="addlist"){
-    var html ="<li><span class='add'>"+dataUserNams+"添加了用户"+data.addUser+"</span></li>";
+    var html ="<li><span class='add'>"+dataUserNams+"添加了学生"+data.addUser+"</span></li>";
     $(".chart-message").append(html);
     ContentHmtlBotton($(".chart-user-list"));
+  }else if(type=="dellist"){
+    var html = "<li><span class='add'>"+dataUserNams+"删除了学生"+data.addUser+"</span></li>";
+    $(".chart-message").append(html);
   }
   ContentHmtlBotton($(".chart-message"));
 }
@@ -100,6 +105,9 @@ function socketBack(){
   socket.on("list",function(data){
     getStatusList(data);
   });
+  socket.on("dellist",function (data) {
+      showMessage(data,"dellist");
+  });
 }
 
 
@@ -111,7 +119,7 @@ function getStatusList(data){
       listHtml+='<span class="add btn" onclick="addUser('+data.info[i].id+')">+</span>';
       listHtml+='<span class="del btn" onclick="delUser('+data.info[i].id+')">-</span>';
       //删除学生
-      // listHtml+='<span class="delUser btn" onclick="delList('+data.info[i].id+')">X</span>';
+      listHtml+='<span class="delUser btn" onclick="delList('+data.info[i].id+')">X</span>';
     }
     listHtml+='<img src="'+data.info[i].headImd+'"  class="fl" alt="">';
     listHtml+='<p class="fl">';
@@ -121,10 +129,11 @@ function getStatusList(data){
     listHtml+='</li>';
   }
   $(".chart-user-list").html(listHtml);
+  $("#studentTitle").html("学生人数："+data.info.length+"人");
 }
 
 
-
+//加分
 function addUser(id){
   var addUser={
     id:id,
@@ -133,7 +142,7 @@ function addUser(id){
   }
   socket.emit('score',  addUser);
 }
-
+//减分
 function delUser(id) {
   var delUser = {
       id:id,
@@ -193,11 +202,16 @@ function ContentHmtlBotton(dom){
 function addList(){
   $(".add-user-list").show();
 }
-//删除学生
-// function delList(id){
-//     console.log(id);
-//     socket.emit('dellist', {id:id});
-// }
+// 删除学生
+function delList(id){
+    console.log(id);
+    var valObj={
+       delId :id,
+       type:userType,
+       user:userName
+    }
+    socket.emit('dellist', valObj);
+}
 function addUserList(){
   var val = $("#addUserName").val();
   if(val){
