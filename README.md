@@ -1,10 +1,13 @@
 # Websocket Chat
 
-Websocket Chat 前后端websocket的聊天室      
-socket.io进行前后端信息传递    
-node服务将数据读写在data文件下    
+Websocket Chat 
+同步聊天会话聊天室
 
-启动
+
+前端jq
+请求方式 socket.io
+后段node 
+
 ``````
 node wsServer.js
 ``````
